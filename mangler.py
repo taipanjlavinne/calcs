@@ -11,6 +11,7 @@ def premangle(mtext):
     mtext = re.sub(r'\+\-', r'\-', mtext)
     mtext = re.sub(r'\-\-', r'\+', mtext) 
     mtext = re.sub(r'\+\+', r'\+', mtext)
+    mtext = re.sub(r'\-\+', r'\-', mtext)
     return mtext
 
     
@@ -46,7 +47,8 @@ _basic_funs = [
     {'pT': 'mpfr', 'cN': 'add',   'ka': ['+', 'add']},
     {'pT': 'mpfr', 'cN': 'sub',   'ka': ['-', 'sub']},
     {'pT': 'mpfr', 'cN': 'mul',   'ka': ['*', 'mul']},
-    {'pT': 'mpfr', 'cN': 'div',   'ka': ['/', 'div']}    
+    {'pT': 'mpfr', 'cN': 'div',   'ka': ['/', 'div']},
+    {'pT': 'mpfr', 'cN': 'pow',   'ka': ['^', 'pow']}    
 ]
 # math constants
 _mathconstants = [
@@ -117,8 +119,8 @@ def mangle_calc_to_exec(mtext):
 
        e.q '1 - 1' => str(sub(mpfr("1"), mpfr("1")))
     '''
-    # added look`a`head to avoid confusion with negative numbers
-    mo = re.search('(?<=\d)(\s*[\+\-\/\*])', mtext)
+    # added look`behind to avoid confusion with negative numbers
+    mo = re.search('(?<=\d)(\s*[\+\-\/\*\^])', mtext)
     fd = _fundict(mo.group().strip(), diclist = _basic_funs)
     x, y = mo.span()
     return 'str(%s(%s("%s"), %s("%s")))' % (
@@ -131,9 +133,13 @@ def mangle_calc_to_exec(mtext):
 
 
 def moptext(mtext):
-    return re.search(r'\([^\(\)]\)', mtext)
+    return re.search(r'\([^\(\)]+\)', mtext)
 
 
 def mocalc(mtext):
-    x = r'(\-?\d+\.?\d*)[\-\+\=\*\/](\-?\d+\.?\d*)'
-    return re.search(x, mtext)
+    x = re.search(r'(\-?\d+\.?\d*)[\^](\-?\d+\.?\d*)', mtext)
+    if x is None:
+        x = re.search(r'(\-?\d+\.?\d*)[\*\/](\-?\d+\.?\d*)', mtext)
+        if x is None:
+            x = re.search(r'(\-?\d+\.?\d*)[\-\+](\-?\d+\.?\d*)', mtext)
+    return x         
