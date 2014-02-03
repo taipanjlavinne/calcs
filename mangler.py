@@ -3,47 +3,46 @@ import re
 
 '''Various functions and structures to mangle mathematical formulas
 
-   Using "mtext" to notate [ready to calculate] text with inner format
+   Using "mangled_text" to notate [ready to calculate] text with inner format
 '''
 
 #pre-mangling to ease future function resolve
-def premangle(mtext):
-    mtext = re.sub(r'\+\-', r'\-', mtext)
-    mtext = re.sub(r'\-\-', r'\+', mtext) 
-    mtext = re.sub(r'\+\+', r'\+', mtext)
-    mtext = re.sub(r'\-\+', r'\-', mtext)
-    return mtext
-
+def premangle(mangled_text):
+    mangled_text = re.sub(r'\+\-', r'\-', mangled_text)
+    mangled_text = re.sub(r'\-\-', r'\+', mangled_text) 
+    mangled_text = re.sub(r'\+\+', r'\+', mangled_text)
+    mangled_text = re.sub(r'\-\+', r'\-', mangled_text)
+    return mangled_text
     
 # math functions which take single parameter
-_single_param_funs = [
-    {'pT': 'mpfr', 'cN': 'atan',   'ka': ['arctan', 'atan']},
-    {'pT': 'mpfr', 'cN': 'asin',   'ka': ['arcsin', 'asin']},
-    {'pT': 'mpfr', 'cN': 'acos',   'ka': ['arccos', 'acos']},
-    {'pT': 'mpfr', 'cN': 'tan',    'ka': ['tangent', 'tan']},
-    {'pT': 'mpfr', 'cN': 'sin',    'ka': ['sine', 'sin']},
-    {'pT': 'mpfr', 'cN': 'cos',    'ka': ['cosine', 'cos']},
-    {'pT': 'mpfr', 'cN': 'atanh',  'ka': ['atanh']},
-    {'pT': 'mpfr', 'cN': 'asinh',  'ka': ['asinh']},
-    {'pT': 'mpfr', 'cN': 'acosh',  'ka': ['acosh']},
-    {'pT': 'mpfr', 'cN': 'tanh',   'ka': ['tanh']},
-    {'pT': 'mpfr', 'cN': 'sinh',   'ka': ['sinh']},
-    {'pT': 'mpfr', 'cN': 'cosh',   'ka': ['cosh']},
-    {'pT': 'mpfr', 'cN': 'cot',    'ka': ['cotangent', 'cot']},
-    {'pT': 'mpfr', 'cN': 'coth',   'ka': ['coth']},
-    {'pT': 'mpfr', 'cN': 'log',    'ka': ['log']},
-    {'pT': 'mpfr', 'cN': 'log10',  'ka': ['log10']},
-    {'pT': 'mpfr', 'cN': 'log2',   'ka': ['log2']},
-    {'pT': 'mpfr', 'cN': 'square', 'ka': ['square', 'sqr']},
-    {'pT': 'mpfr', 'cN': 'sqrt',   'ka': ['sqrt']},
-    {'pT': 'mpfr', 'cN': 'exp',    'ka': ['exp']},
-    {'pT': 'mpfr', 'cN': 'exp2',   'ka': ['exp2']},
-    {'pT': 'mpfr', 'cN': 'exp10',  'ka': ['exp10']}
+_single_param_functions = [
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'atan',   'ka': ['arctan', 'atan']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'asin',   'ka': ['arcsin', 'asin']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'acos',   'ka': ['arccos', 'acos']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'tan',    'ka': ['tangent', 'tan']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'sin',    'ka': ['sine', 'sin']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'cos',    'ka': ['cosine', 'cos']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'atanh',  'ka': ['atanh']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'asinh',  'ka': ['asinh']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'acosh',  'ka': ['acosh']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'tanh',   'ka': ['tanh']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'sinh',   'ka': ['sinh']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'cosh',   'ka': ['cosh']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'cot',    'ka': ['cotangent', 'cot']},
+    {'fT': 'angular','pT': 'mpfr', 'cN': 'coth',   'ka': ['coth']},
+    {'fT': ''       ,'pT': 'mpfr', 'cN': 'log',    'ka': ['log']},
+    {'fT': ''       ,'pT': 'mpfr', 'cN': 'log10',  'ka': ['log10']},
+    {'fT': ''       ,'pT': 'mpfr', 'cN': 'log2',   'ka': ['log2']},
+    {'fT': ''       ,'pT': 'mpfr', 'cN': 'square', 'ka': ['square', 'sqr']},
+    {'fT': ''       ,'pT': 'mpfr', 'cN': 'sqrt',   'ka': ['sqrt']},
+    {'fT': ''       ,'pT': 'mpfr', 'cN': 'exp',    'ka': ['exp']},
+    {'fT': ''       ,'pT': 'mpfr', 'cN': 'exp2',   'ka': ['exp2']},
+    {'fT': ''       ,'pT': 'mpfr', 'cN': 'exp10',  'ka': ['exp10']}
 ]
 
 # basic math functions which with certain aliases can
 # corrupt the rest
-_basic_funs = [
+_basic_functions = [
     {'pT': 'mpfr', 'cN': 'add',   'ka': ['+', 'add']},
     {'pT': 'mpfr', 'cN': 'sub',   'ka': ['-', 'sub']},
     {'pT': 'mpfr', 'cN': 'mul',   'ka': ['*', 'mul']},
@@ -51,29 +50,31 @@ _basic_funs = [
     {'pT': 'mpfr', 'cN': 'pow',   'ka': ['^', 'pow']}    
 ]
 # math constants
-_mathconstants = [
+_constants = [
     {'cN': 'const_pi',      'ka': ['const_pi', 'pi']},
     {'cN': 'const_euler',   'ka': ['const_euler', 'euler']},
     {'cN': 'const_log2',    'ka': ['const_log2', 'log2']},
     {'cN': 'const_catalan', 'ka': ['const_catalan']}
 ]
 
+def _do_imports():
+    pass
 
-def _fundict(name, diclist = _single_param_funs):
+def _fundict(name, diclist = _single_param_functions):
     for f in diclist:
         if name in f['ka']:
             return f
     return None
 
 
-def _condict(name, diclist = _mathconstants):
+def _condict(name, diclist = _constants):
     for f in diclist:
         if name in f['ka']:
             return f
     return None
 
 
-def mofun(text):
+def mo_fun(mangled_text):
     '''Formula -> str
 
        Return match object
@@ -82,13 +83,13 @@ def mofun(text):
        calculation. Translations done elsewhere
     '''
     l = []
-    for f in _single_param_funs:
+    for f in _single_param_functions:
         l.extend(f['ka'])
     pattern = r'(' + '|'.join(l) + r')\([^\(]+\)'
-    return re.search(pattern, text)
+    return re.search(pattern, mangled_text)
 
 
-def mocon(text):
+def mo_con(mangled_text):
     '''Formula -> str
 
        Return match object
@@ -99,47 +100,58 @@ def mocon(text):
     for f in _mathconstants:
         l.extend(f['ka'])
     pattern = r'(' + '|'.join(l) + r')'
-    return re.search(pattern, text)
+    return re.search(pattern, mangled_text)
 
 
-def mangle_fun_to_exec(mtext):
-    i = mtext.find('(')
-    e = mtext.find(')')
-    s = _fundict(mtext[:i])['pT']
-    return 'str(%s%s("%s")))' % (mtext[:i + 1], s,  mtext[i + 1:e])
+def mangle_fun_to_exec(mangled_text, Degrees=False):
+    outs = ''
+    a = mangled_text.find('(')
+    e = mangled_text.find(')')
+    dic = _fundict(mangled_text[:a])
+    s = dic['pT']
+    if (dic['fT'] is 'angular') and Degrees:
+        if s.startswith('a'): # function is arcus something ?...
+                    outs =  'str(%s(%s%s("%s"))))' % ('degrees', mangled_text[:a + 1],
+                                                    s, mangled_text[a + 1:e])
+        else:
+            outs =  'str(%s%s(%s("%s"))))' % (mangled_text[:a + 1], 'radians',
+                                          s,  mangled_text[a + 1:e])
+    else:
+        outs =  'str(%s%s("%s")))' % (mangled_text[:a + 1], s,  mangled_text[a + 1:e])        
+    return outs
 
 
-def mangle_const_to_exec(mtext):
-    mo = _condict(mtext)
-    return r'str(%s())' % mo['cN']
+def mangle_const_to_exec(mangled_text):
+    mo_ = _condict(mangled_text)
+    return r'str(%s())' % mo_['cN']
 
 
-def mangle_calc_to_exec(mtext):
+def mangle_calc_to_exec(mangled_text):
     '''mangles evaluatable function str from  basic math operation
 
        e.q '1 - 1' => str(sub(mpfr("1"), mpfr("1")))
     '''
     # added look`behind to avoid confusion with negative numbers
-    mo = re.search('(?<=\d)(\s*[\+\-\/\*\^])', mtext)
-    fd = _fundict(mo.group().strip(), diclist = _basic_funs)
+    mo = re.search('(?<=\d)(\s*[\+\-\/\*\^])', mangled_text)
+    fd = _fundict(mo.group().strip(), diclist = _basic_functions)
     x, y = mo.span()
     return 'str(%s(%s("%s"), %s("%s")))' % (
         fd['cN'],
         fd['pT'],
-        mtext[:x],
+        mangled_text[:x],
         fd['pT'],
-        mtext[y:]
+        mangled_text[y:]
         )
 
 
-def moptext(mtext):
-    return re.search(r'\([^\(\)]+\)', mtext)
+def mo_ptext(mangled_text):
+    return re.search(r'\([^\(\)]+\)', mangled_text)
 
 
-def mocalc(mtext):
-    x = re.search(r'(\-?\d+\.?\d*)[\^](\-?\d+\.?\d*)', mtext)
-    if x is None:
-        x = re.search(r'(\-?\d+\.?\d*)[\*\/](\-?\d+\.?\d*)', mtext)
-        if x is None:
-            x = re.search(r'(\-?\d+\.?\d*)[\-\+](\-?\d+\.?\d*)', mtext)
+def mo_calc(mangled_text):
+    x = re.search(r'(\-?\d+\.?\d*)[\^](\-?\d+\.?\d*)', mangled_text)
+    if not x:
+        x = re.search(r'(\-?\d+\.?\d*)[\*\/](\-?\d+\.?\d*)', mangled_text)
+        if not x:
+            x = re.search(r'(\-?\d+\.?\d*)[\-\+](\-?\d+\.?\d*)', mangled_text)
     return x         
