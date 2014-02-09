@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-from mangler import *
-from gmpy2 import *        # importing all which we'll have change TODO
-                           # but with some automation
 
-_context = get_context()   # unhiding context context
+from mangler import *
+import decimal
+import gmpy2
 
 
 def crunch(mtext, Degrees=False):

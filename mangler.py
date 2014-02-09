@@ -19,50 +19,85 @@ def signmangle(mangled_text):
 # TODO: when adding functions remember to put first longer
 # which have same string in them
 _single_param_functions = [
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'atanh',  'ka': ['atanh']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'asinh',  'ka': ['asinh']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'acosh',  'ka': ['acosh']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'tanh',   'ka': ['tanh']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'sinh',   'ka': ['sinh']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'cosh',   'ka': ['cosh']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'coth',   'ka': ['coth']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'atan',   'ka': ['arctan', 'atan']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'asin',   'ka': ['arcsin', 'asin']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'acos',   'ka': ['arccos', 'acos']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'tan',    'ka': ['tangent', 'tan']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'sin',    'ka': ['sine', 'sin']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'cos',    'ka': ['cosine', 'cos']},
-    {'fT': 'angular', 'pT': 'mpfr', 'cN': 'cot',    'ka': ['cotangent', 'cot']},
-    {'fT': ''       , 'pT': 'mpfr', 'cN': 'log2',   'ka': ['log2']},
-    {'fT': ''       , 'pT': 'mpfr', 'cN': 'log10',  'ka': ['log10']},
-    {'fT': ''       , 'pT': 'mpfr', 'cN': 'log',    'ka': ['log']},
-    {'fT': ''       , 'pT': 'mpfr', 'cN': 'sqrt',   'ka': ['sqrt']},
-    {'fT': ''       , 'pT': 'mpfr', 'cN': 'square', 'ka': ['square', 'sqr']},
-    {'fT': ''       , 'pT': 'mpfr', 'cN': 'exp10',  'ka': ['exp10']},
-    {'fT': ''       , 'pT': 'mpfr', 'cN': 'exp2',   'ka': ['exp2']},
-    {'fT': ''       , 'pT': 'mpfr', 'cN': 'exp',    'ka': ['exp']}
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.atanh',
+     'ka': ['atanh']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.asinh',
+     'ka': ['asinh']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.acosh',
+     'ka': ['acosh']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.tanh',
+     'ka': ['tanh']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.sinh',
+     'ka': ['sinh']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.cosh',
+     'ka': ['cosh']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.coth',
+     'ka': ['coth']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.atan',
+     'ka': ['arctan', 'atan']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.asin',
+     'ka': ['arcsin', 'asin']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.acos',
+     'ka': ['arccos', 'acos']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.tan',
+     'ka': ['tangent', 'tan']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.sin',
+     'ka': ['sine', 'sin']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.cos',
+     'ka': ['cosine', 'cos']},
+    {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.cot',
+     'ka': ['cotangent', 'cot']},
+    {'fT': ''       , 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.log2',
+     'ka': ['log2']},
+    {'fT': ''       , 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.log10',
+     'ka': ['log10']},
+    {'fT': ''       , 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.log',
+     'ka': ['log']},
+    {'fT': ''       , 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.sqrt',
+     'ka': ['sqrt']},
+    {'fT': ''       , 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.square',
+     'ka': ['square', 'sqr']},
+    {'fT': ''       , 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.exp10',
+     'ka': ['exp10']},
+    {'fT': ''       , 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.exp2',
+     'ka': ['exp2']},
+    {'fT': ''       , 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.exp',
+     'ka': ['exp']}
 ]
 
 # basic math functions which with certain aliases can
 # corrupt the rest
 _basic_functions = [
-    {'pT': 'mpfr', 'cN': 'add',   'ka': ['+', 'add']},
-    {'pT': 'mpfr', 'cN': 'sub',   'ka': ['-', 'sub']},
-    {'pT': 'mpfr', 'cN': 'mul',   'ka': ['*', 'mul']},
-    {'pT': 'mpfr', 'cN': 'div',   'ka': ['/', 'div']},
-    {'pT': 'mpfr', 'cN': 'pow',   'ka': ['^', 'pow']}
+    {'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.add',   'ka': ['+', 'add']},
+    {'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.sub',   'ka': ['-', 'sub']},
+    {'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.mul',   'ka': ['*', 'mul']},
+    {'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.div',   'ka': ['/', 'div']},
+    {'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.pow',   'ka': ['^', 'pow']}
 ]
+
+# added these since decimal module is better with them
+# than gmpy2
+_basic_D_functions = [
+    {'pT': 'decimal.Decimal', 'cN': 'decimal.getcontext().add',
+     'ka': ['+', 'add']},
+    {'pT': 'decimal.Decimal', 'cN': 'decimal.getcontext().subtract',
+     'ka': ['-', 'sub']},
+    {'pT': 'decimal.Decimal', 'cN': 'decimal.getcontext().multiply',
+     'ka': ['*', 'mul']},
+    {'pT': 'decimal.Decimal', 'cN': 'decimal.getcontext().divide',
+     'ka': ['/', 'div']},
+    {'pT': 'decimal.Decimal', 'cN': 'decimal.getcontext().power',
+     'ka': ['^', 'pow']}
+]
+
 
 # math constants
 _constants = [
-    {'cN': 'const_pi',      'ka': ['const_pi', 'pi']},
-    {'cN': 'const_euler',   'ka': ['const_euler', 'euler']},
-    {'cN': 'const_log2',    'ka': ['const_log2', 'log2']},
-    {'cN': 'const_catalan', 'ka': ['const_catalan']}
+    {'cN': 'gmpy2.const_pi',      'ka': ['const_pi', 'pi']},
+    {'cN': 'gmpy2.const_euler',   'ka': ['const_euler', 'euler']},
+    {'cN': 'gmpy2.const_log2',    'ka': ['const_log2', 'log2']},
+    {'cN': 'gmpy2.const_catalan', 'ka': ['const_catalan']}
 ]
-
-def _do_imports():
-    pass
 
 def _fundict(name, diclist = _single_param_functions):
     for f in diclist:
@@ -116,13 +151,13 @@ def mangle_fun_to_exec(mangled_text, Degrees=False):
     n = dic['cN']
     if (dic['fT'] is 'angular') and Degrees:
         if n.startswith('a'):  # function is arcus something ?...
-            outs =  'str(%s(%s(%s("%s"))))' % ('degrees',
+            outs =  'str(%s(%s(%s("%s"))))' % ('gmpy2.degrees',
                                               n,
                                               s,
                                               mangled_text[y:].strip())
         else:
             outs =  'str(%s(%s(%s("%s"))))' % (n,
-                                              'radians',
+                                              'gmpy2.radians',
                                               s,
                                               mangled_text[y:].strip())
     else:
@@ -143,14 +178,21 @@ def mangle_calc_to_exec(mangled_text):
        e.q '1 - 1' => str(sub(mpfr("1"), mpfr("1")))
     '''
     # added look`behind to avoid confusion with negative numbers
-    mo = re.search('(?<=\d)(\s*[\+\-\/\*\^])', mangled_text)
-    fd = _fundict(mo.group().strip(), diclist = _basic_functions)
+    retval = ''
+    mo = re.search(r'(?<=\d)(\s*[\+\-\/\*\^])', mangled_text)
+    dmo = re.search(r'[bx]', mangled_text)
+    if dmo:  # if contains b or x, decimal module cant cope 
+        fd = _fundict(mo.group().strip(), diclist = _basic_functions)
+    else:
+        fd = _fundict(mo.group().strip(), diclist = _basic_D_functions)
     x, y = mo.span()
-    return 'str(%s(%s("%s"), %s("%s")))' %( fd['cN'],fd['pT'],
-                                            mangled_text[:x],
-                                            fd['pT'],
-                                            mangled_text[y:]
-                                            )
+    retval = 'str(%s(%s("%s"), %s("%s")))' %( fd['cN'],fd['pT'],
+                                              mangled_text[:x],
+                                              fd['pT'],
+                                              mangled_text[y:]
+                                              )
+    return retval
+
 
 
 def mo_ptext(mangled_text):
