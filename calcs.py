@@ -2,19 +2,36 @@
 
 from cruncher import crunch
 import argparse
-from gmpy2 import round2 as rnd, mpfr as R
+from gmpy2 import mpfr as R
 import gmpy2 as gmp
 
 
+arpa = argparse.ArgumentParser(
+    description='Small and accurate calculator beastie')
 
-arpa = argparse.ArgumentParser(description='Calculates given math from cmdline')
-arpa.add_argument('-p', '--precision', help='set calculation precision', type=int)
-arpa.add_argument('-f', '--format', help='result format', type=int)
-arpa.add_argument('-c', '--calculate', nargs='+', help='formula to calculate')
-arpa.add_argument('-d', '--degrees', action='store_true',
+arpa.add_argument('-p',
+                  '--precision',
+                  help='set calculation precision',
+                  type=int)
+
+arpa.add_argument('-f',
+                  '--format',
+                  help='result format',
+                  type=int)
+
+arpa.add_argument('-c',
+                  '--calculate',
+                  nargs='+',
+                  help='formula to calculate')
+
+arpa.add_argument('-d', '--degrees',
+                  action='store_true',
                   help='Use degrees instead of radians')
-arpa.add_argument('-g', '--graphical', action='store_true',
+
+arpa.add_argument('-g', '--graphical',
+                  action='store_true',
                   help='Show Tk calculator')
+
 args = arpa.parse_args()
 
 _context = gmp.get_context()
@@ -29,4 +46,6 @@ if not args.graphical and args.calculate:
     if result.endswith('.0'):
         print (result[:-2])
     else: print (result)
-
+else:
+    with open('tker.py', 'rb') as tker:
+        exec(compile(tker.read(), 'tker.py', 'exec' ), globals(), locals())
