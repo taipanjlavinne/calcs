@@ -1,4 +1,4 @@
-#/usr/bin/python3
+#!/usr/bin/python3
 
 from cruncher import crunch
 import argparse
@@ -7,30 +7,30 @@ import gmpy2 as gmp
 
 
 arpa = argparse.ArgumentParser(
-    description='Small and accurate calculator beastie')
+        description='Small and accurate calculator beastie')
 
 arpa.add_argument('-p',
-                  '--precision',
-                  help='set calculation precision',
-                  type=int)
+        '--precision',
+        help='set calculation precision',
+        type=int)
 
 arpa.add_argument('-f',
-                  '--format',
-                  help='result format',
-                  type=int)
+        '--format',
+        help='result format',
+        type=int)
 
 arpa.add_argument('-c',
-                  '--calculate',
-                  nargs='+',
-                  help='formula to calculate')
+        '--calculate',
+        nargs='+',
+        help='formula to calculate')
 
 arpa.add_argument('-d', '--degrees',
-                  action='store_true',
-                  help='Use degrees instead of radians')
+        action='store_true',
+        help='Use degrees instead of radians')
 
 arpa.add_argument('-g', '--graphical',
-                  action='store_true',
-                  help='Show Tk calculator')
+        action='store_true',
+        help='Show Tk calculator')
 
 args = arpa.parse_args()
 
@@ -42,7 +42,7 @@ _context.subnormalize = True
 
 if not args.graphical and args.calculate:
     result = crunch( ' '.join(args.calculate), 
-                   args.degrees if args.degrees else False)
+            args.degrees if args.degrees else False)
     if result.endswith('.0'):
         print (result[:-2])
     else: print (result)
