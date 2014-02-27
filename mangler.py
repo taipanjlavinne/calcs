@@ -16,8 +16,9 @@ def signmangle(mangled_text):
     return mangled_text
 
 # math functions which take single parameter
-# TODO: when adding functions remember to put first longer
-# which have same string in them
+# TODO: when adding functions remember to put first 
+# longer name which have same substring in them
+
 _single_param_functions = [
     {'fT': 'angular', 'pT': 'gmpy2.mpfr', 'cN': 'gmpy2.atanh',
      'ka': ['atanh']},

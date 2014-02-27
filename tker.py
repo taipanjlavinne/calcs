@@ -2,6 +2,7 @@
 
 from tkinter import Frame, Button, Tk, N, W, E, S, StringVar, Label
 from tkinter.font import Font
+from tkinter import Menu
 #from tkinter.ttk import Frame, Button
 
 degs = False
@@ -12,46 +13,52 @@ except:
     import sys
     sys.exit('not cool')
 
+# n for function name which used in mangler
+# a for alternate -||-
+# w for widget
+# t for StringVar in widget
+# ar for alternate representation string
+# r  for           -||-
 trigFun = [
-        {'name': 'sin',   'a': 'asin',  'w': None, 't': None, 'i': None},
-        {'name': 'cos',   'a': 'acos',  'w': None, 't': None, 'i': None},
-        {'name': 'tan',   'a': 'atan',  'w': None, 't': None, 'i': None},
-        {'name': 'sec',   'a': '',      'w': None, 't': None, 'i': None},
-        {'name': 'csc',   'a': '',      'w': None, 't': None, 'i': None},
-        {'name': 'cot',   'a': '',      'w': None, 't': None, 'i': None},
-        {'name': 'sinh',  'a': 'asinh', 'w': None, 't': None, 'i': None},
-        {'name': 'cosh',  'a': 'acosh', 'w': None, 't': None, 'i': None},
-        {'name': 'tanh',  'a': 'atanh', 'w': None, 't': None, 'i': None},
-        {'name': 'sech',  'a': '',      'w': None, 't': None, 'i': None},
-        {'name': 'csch',  'a': '',      'w': None, 't': None, 'i': None},
-        {'name': 'coth',  'a': '',      'w': None, 't': None, 'i': None}
-        ]
-
-fun = [
-        {'name': 'ln',    'a': '',      'w': None, 't': None, 'i': None},
-        {'name': 'log10', 'a': 'log2',  'w': None, 't': None, 'i': None}
-        ]
-
-basicFun =  [
-        {'name': '+',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '-',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '*',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '/',     'a': '',      'w': None, 't': None, 'i': None}
-        ]
-
-numFun = [
-        {'name': '1',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '2',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '3',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '4',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '5',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '6',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '7',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '8',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '9',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '-',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '0',     'a': '',      'w': None, 't': None, 'i': None},
-        {'name': '.',     'a': '',      'w': None, 't': None, 'i': None}
+        {'n': 'sin',   'a': 'asin',  'w': None, 't': None, 'ar':'sin\u207B\u00B9', 'r': 'sin' },
+        {'n': 'cos',   'a': 'acos',  'w': None, 't': None, 'ar':'cos\u207B\u00B9', 'r': 'cos' },
+        {'n': 'tan',   'a': 'atan',  'w': None, 't': None, 'ar':'tan\u207B\u00B9', 'r': 'tan' },
+        {'n': 'sec',   'a': '',      'w': None, 't': None, 'ar':'',  'r': 'sec' },
+        {'n': 'csc',   'a': '',      'w': None, 't': None, 'ar':'',  'r': 'csc' },
+        {'n': 'cot',   'a': '',      'w': None, 't': None, 'ar':'',  'r': 'cot' },
+        {'n': 'sinh',  'a': 'asinh', 'w': None, 't': None, 'ar':'sinh\u207B\u00B9','r': 'sinh'},
+        {'n': 'cosh',  'a': 'acosh', 'w': None, 't': None, 'ar':'cosh\u207B\u00B9','r': 'cosh'},
+        {'n': 'tanh',  'a': 'atanh', 'w': None, 't': None, 'ar':'tanh\u207B\u00B9','r': 'tanh'},
+        {'n': 'sech',  'a': '',      'w': None, 't': None, 'ar':'',  'r': 'sech'},
+        {'n': 'csch',  'a': '',      'w': None, 't': None, 'ar':'',  'r': 'csch'},
+        {'n': 'coth',  'a': '',      'w': None, 't': None, 'ar':'',  'r': 'coth'}
+        ]                                                   
+                                                            
+fun = [                                                     
+        {'n': 'ln',    'a': '',      'w': None, 't': None, 'ar':'',  'r': None},
+        {'n': 'log10', 'a': 'log2',  'w': None, 't': None, 'ar':'',  'r': None}
+        ]                                                 
+                                                          
+basicFun =  [                                             
+        {'n': '+', 'w': None, 't': None},
+        {'n': '-', 'w': None, 't': None},
+        {'n': '*', 'w': None, 't': None},
+        {'n': '/', 'w': None, 't': None}
+        ]                                                   
+                                                            
+numFun = [                                                  
+        {'n': '1', 'w': None, 't': None},
+        {'n': '2', 'w': None, 't': None},
+        {'n': '3', 'w': None, 't': None},
+        {'n': '4', 'w': None, 't': None},
+        {'n': '5', 'w': None, 't': None},
+        {'n': '6', 'w': None, 't': None},
+        {'n': '7', 'w': None, 't': None},
+        {'n': '8', 'w': None, 't': None},
+        {'n': '9', 'w': None, 't': None},
+        {'n': '-', 'w': None, 't': None},
+        {'n': '0', 'w': None, 't': None},
+        {'n': '.', 'w': None, 't': None}
         ]
 
 
@@ -62,9 +69,20 @@ root.rowconfigure(0, weight = 1, minsize = 20)
 def buttonCallback(namn):
     print(namn)
 
+def menuCallback(namn):
+    print(namn)
+
 # Fonts ----------------------------------------------------------------------
 bFont = Font(family = 'Arial', size = 10)
-aFont = Font(family = 'Arial', size = 6, weight = "bold")
+aFont = Font(family = 'Arial', size = 8)
+
+# Mainmenu ------------------------------------------------------------------
+menuBar = Menu(root)
+fileMenu = Menu(menuBar, tearoff = 0)
+fileMenu.add_command(label = 'Quit', command = lambda: menuCallback('quit'))
+menuBar.add_cascade(label = 'File', menu = fileMenu)
+root.configure(menu = menuBar)
+
 
 # FormulaFrame -------------------------------------------------------------
 
@@ -94,8 +112,8 @@ y = 0
 for d in trigFun:
     sv = StringVar()
     asv = StringVar()
-    asv.set(d['a'])
-    if d['a'] != '':
+    asv.set(d['ar'])
+    if d['ar'] != '':
         l = Label( 
                 trigFrame,
                 font = aFont,
@@ -103,7 +121,7 @@ for d in trigFun:
                 width = 5
                 )
     d['t'] = sv
-    sv.set(d['name'])
+    sv.set(d['r'])
     d['w'] = Button(
             trigFrame, 
             font = bFont,
@@ -111,14 +129,14 @@ for d in trigFun:
             pady = 0,
             textvariable = sv,
             width = 5,
-            command = lambda d=d: buttonCallback(d['name'])
+            command = lambda d=d: buttonCallback(d['n'])
             )
     if y == triFrameColumns:
         y = 0
         x2 += 2
         x += 2
 
-    if d['a'] != '':
+    if d['ar'] != '':
         l.grid(row = x, column = y)
     d['w'].grid(row = x2, column = y)
     y += 1
@@ -141,14 +159,14 @@ numFrameColumns = 3
 for d in numFun:
     sv = StringVar()
     d['t'] = sv
-    sv.set(d['name'])
+    sv.set(d['n'])
     d['w'] = Button(
             numFrame, 
             textvariable = sv,
             width = 2,
             pady = 3,
             padx = 2,
-            command = lambda d=d: buttonCallback(d['name'])
+            command = lambda d=d: buttonCallback(d['n'])
             )
     if y == numFrameColumns:
         y = 0
